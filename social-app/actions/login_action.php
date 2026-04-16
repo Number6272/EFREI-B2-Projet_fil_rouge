@@ -1,21 +1,22 @@
 <?php
-require '../includes/header.php';
-require '../includes/navbar.php';
-?>
+session_start();
+require '../config/db.php';
 
-<h2>Connexion</h2>
+$email    = $_POST['email'];
+$password = $_POST['password'];
 
-<?php if (isset($_SESSION['error'])): ?>
-    <p style="color:red"><?= $_SESSION['error'] ?></p>
-    <?php unset($_SESSION['error']); ?>
-<?php endif; ?>
+$stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+$stmt->execute([$email]);
+$user = $stmt->fetch();
 
-<form action="/social-app/actions/login_action.php" method="POST">
-    <input type="email"    name="email"    placeholder="Email"        required><br>
-    <input type="password" name="password" placeholder="Mot de passe" required><br>
-    <button type="submit">Se connecter</button>
-</form>
+if (!$user || !password_verify($password, $user['password'])) {
+    $_SESSION['error'] = "Email ou mot de passe incorrect.";
+    header('Location: ../pages/login.php');
+    exit;
+}
 
-<a href="/social-app/pages/register.php">Pas de compte ? S'inscrire</a>
+$_SESSION['user_id']  = $user['id'];
+$_SESSION['username'] = $user['username'];
 
-<?php require '../includes/footer.php'; ?>
+header('Location: ../index.php');
+exit;

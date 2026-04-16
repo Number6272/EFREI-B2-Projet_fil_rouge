@@ -47,7 +47,7 @@ require '../includes/navbar.php';
             <button type="submit" class="btn btn-primary">S'INSCRIRE</button>
         </form>
 
-        <p class="auth-switch">Déjà un compte ? <a href="/social-app/pages/login.php">Se connecter</a></p>
+        <p class="auth-switch">Déjà un compte ? <a href="/test2/social-app/pages/login.php">Se connecter</a></p>
     </div>
 </main>
 
