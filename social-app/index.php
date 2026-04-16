@@ -44,8 +44,8 @@ $posts = $stmt->fetchAll();
 
         <?php foreach ($comments as $comment): ?>
             <div>
-                <strong><?= $comment['username'] ?></strong>
-                <p><?= $comment['contenu'] ?></p>
+                <strong><?= htmlspecialchars($comment['username']) ?></strong>
+                <p><?= htmlspecialchars($comment['contenu']) ?></p>
 
                 <?php if ($comment['user_id'] == $_SESSION['user_id']): ?>
                     <form action="actions/delete_comment.php" method="POST">
