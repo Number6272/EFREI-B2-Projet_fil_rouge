@@ -37,13 +37,15 @@ $posts = $stmt->fetchAll();
         <?php endif; ?>
 
         <?php
-        $stmt2 = $pdo->prepare("SELECT comments.*, users.username FROM comments JOIN users ON comments.user_id = users.id WHERE post_id = ? ORDER BY created_at ASC");
+        $stmt2 = $pdo->prepare("SELECT comments.*, users.username, users.avatar FROM comments JOIN users ON comments.user_id = users.id WHERE post_id = ? ORDER BY created_at ASC");
         $stmt2->execute([$post['id']]);
         $comments = $stmt2->fetchAll();
         ?>
 
         <?php foreach ($comments as $comment): ?>
             <div>
+                <?php $comment_avatar = !empty($comment['avatar']) ? 'assets/images/' . $comment['avatar'] : 'assets/images/default-avatar.png'; ?>
+                <img src="<?= htmlspecialchars($comment_avatar) ?>" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">
                 <strong><?= htmlspecialchars($comment['username']) ?></strong>
                 <p><?= htmlspecialchars($comment['contenu']) ?></p>
 
