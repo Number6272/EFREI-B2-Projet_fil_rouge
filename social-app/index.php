@@ -19,6 +19,7 @@ $posts = $stmt->fetchAll();
     <div>
         <h3><?= $post['titre'] ?></h3>
         <p><?= $post['contenu'] ?></p>
+        <small>Par <?= $post['username'] ?> — <?= $post['created_at'] ?></small>
 
         <?php if ($post['user_id'] == $_SESSION['user_id']): ?>
             <form action="actions/delete_post.php" method="POST">
