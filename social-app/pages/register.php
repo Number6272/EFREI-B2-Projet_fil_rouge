@@ -22,7 +22,7 @@ require '../includes/navbar.php';
             <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
 
-        <form action="/social-app/actions/register_action.php" method="POST" class="auth-form">
+        <form action="../actions/register_action.php" method="POST">
 
             <div class="form-group">
                 <label for="username">Nom d'utilisateur</label>

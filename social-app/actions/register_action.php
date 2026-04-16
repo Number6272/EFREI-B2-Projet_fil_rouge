@@ -1,22 +1,25 @@
 <?php
-require '../includes/header.php';
-require '../includes/navbar.php';
-?>
+session_start();
+require '../config/db.php';
 
-<h2>Inscription</h2>
+$username = $_POST['username'];
+$email    = $_POST['email'];
+$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-<?php if (isset($_SESSION['error'])): ?>
-    <p style="color:red"><?= $_SESSION['error'] ?></p>
-    <?php unset($_SESSION['error']); ?>
-<?php endif; ?>
+$stmt = $pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+$stmt->execute([$username, $email]);
 
-<form action="/social-app/actions/register_action.php" method="POST">
-    <input type="text"     name="username" placeholder="Nom d'utilisateur" required><br>
-    <input type="email"    name="email"    placeholder="Email"              required><br>
-    <input type="password" name="password" placeholder="Mot de passe"       required><br>
-    <button type="submit">S'inscrire</button>
-</form>
+if ($stmt->fetch()) {
+    $_SESSION['error'] = "Nom d'utilisateur ou email déjà utilisé.";
+    header('Location: ../pages/register.php');
+    exit;
+}
 
-<a href="/social-app/pages/login.php">Déjà un compte ? Se connecter</a>
+$stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+$stmt->execute([$username, $email, $password]);
 
-<?php require '../includes/footer.php'; ?>
+$_SESSION['user_id']  = $pdo->lastInsertId();
+$_SESSION['username'] = $username;
+
+header('Location: ../index.php');
+exit;
