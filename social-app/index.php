@@ -35,6 +35,33 @@ $posts = $stmt->fetchAll();
                 <button type="submit">Supprimer</button>
             </form>
         <?php endif; ?>
+
+        <?php
+        $stmt2 = $pdo->prepare("SELECT comments.*, users.username FROM comments JOIN users ON comments.user_id = users.id WHERE post_id = ? ORDER BY created_at ASC");
+        $stmt2->execute([$post['id']]);
+        $comments = $stmt2->fetchAll();
+        ?>
+
+        <?php foreach ($comments as $comment): ?>
+            <div>
+                <strong><?= $comment['username'] ?></strong>
+                <p><?= $comment['contenu'] ?></p>
+
+                <?php if ($comment['user_id'] == $_SESSION['user_id']): ?>
+                    <form action="actions/delete_comment.php" method="POST">
+                        <input type="hidden" name="id" value="<?= $comment['id'] ?>">
+                        <button type="submit">Supprimer</button>
+                    </form>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+
+        <form action="actions/add_comment.php" method="POST">
+            <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
+            <input type="text" name="contenu" placeholder="Ajouter un commentaire..." required>
+            <button type="submit">Commenter</button>
+        </form>
+
     </div>
 <?php endforeach; ?>
 
