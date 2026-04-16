@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: pages/login.php');
+    exit;
+}
+
 require 'includes/auth_check.php';
 require 'includes/header.php';
 require 'includes/navbar.php';
