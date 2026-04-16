@@ -3,6 +3,15 @@ body {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
+    background: #eee;
+}
+
+.post {
+    border: 5px solid red !important;
+    background: yellow !important;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
 nav {

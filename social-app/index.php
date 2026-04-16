@@ -16,7 +16,7 @@ $posts = $stmt->fetchAll();
 </form>
 
 <?php foreach ($posts as $post): ?>
-    <div>
+    <div class="post">
         <?php $avatar = !empty($post['avatar']) ? 'assets/images/' . $post['avatar'] : 'assets/images/default-avatar.png'; ?>
         <img src="<?= htmlspecialchars($avatar) ?>" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">
         <strong><?= htmlspecialchars($post['username']) ?></strong>
