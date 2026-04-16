@@ -4,7 +4,7 @@ require 'includes/header.php';
 require 'includes/navbar.php';
 require 'config/db.php';
 
-$stmt = $pdo->query("SELECT posts.*, users.username, users.avatar FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.created_at DESC");
+$stmt = $pdo->query("SELECT posts.*, users.username, users.avatar , COUNT(likes.id) as nb_likes FROM posts JOIN users ON posts.user_id = users.id LEFT JOIN likes ON posts.id = likes.post_id GROUP BY posts.id ORDER BY posts.created_at DESC");
 $posts = $stmt->fetchAll();
 ?>
 
@@ -61,6 +61,27 @@ $posts = $stmt->fetchAll();
             <input type="text" name="contenu" placeholder="Ajouter un commentaire..." required>
             <button type="submit">Commenter</button>
         </form>
+
+        <?php
+        $stmt3 = $pdo->prepare("SELECT id FROM likes WHERE post_id = ? AND user_id = ?");
+        $stmt3->execute([$post['id'], $_SESSION['user_id']]);
+        $user_liked = $stmt3->fetch();
+        ?>
+
+        <span><?= htmlspecialchars($post['nb_likes']) ?> like(s)</span>
+
+        <?php if ($user_liked): ?>
+            <form action="actions/unlike_post.php" method="POST">
+                <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
+                <button type="submit">Unlike</button>
+            </form>
+
+        <?php else: ?>
+            <form action="actions/like_post.php" method="POST">
+            <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
+                <button type="submit">Like</button>
+            </form>
+        <?php endif; ?>
 
     </div>
 <?php endforeach; ?>
