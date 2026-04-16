@@ -4,22 +4,30 @@ require 'includes/header.php';
 require 'includes/navbar.php';
 require 'config/db.php';
 
-$stmt = $pdo->query("SELECT posts.*, users.username FROM posts JOIN users ON posts.user_id = users.id ORDER BY created_at DESC");
+$stmt = $pdo->query("SELECT posts.*, users.username, users.avatar FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.created_at DESC");
 $posts = $stmt->fetchAll();
-
 ?>
 
-<form action="actions/add_post.php" method="POST">
+<form action="actions/add_post.php" method="POST" enctype="multipart/form-data">
     <input type="text" name="titre" placeholder="Titre" required>
     <textarea name="contenu" placeholder="Contenu..." required></textarea>
+    <input type="file" name="image" accept="image/*">
     <button type="submit">Publier</button>
 </form>
 
 <?php foreach ($posts as $post): ?>
     <div>
-        <h3><?= $post['titre'] ?></h3>
-        <p><?= $post['contenu'] ?></p>
-        <small>Par <?= $post['username'] ?> — <?= $post['created_at'] ?></small>
+        <?php $avatar = !empty($post['avatar']) ? 'assets/images/' . $post['avatar'] : 'assets/images/default-avatar.png'; ?>
+        <img src="<?= htmlspecialchars($avatar) ?>" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">
+        <strong><?= htmlspecialchars($post['username']) ?></strong>
+
+        <h3><?= htmlspecialchars($post['titre']) ?></h3>
+        <p><?= htmlspecialchars($post['contenu']) ?></p>
+        <small><?= htmlspecialchars($post['created_at']) ?></small>
+
+        <?php if (!empty($post['image'])): ?>
+            <img src="assets/images/<?= htmlspecialchars($post['image']) ?>" style="max-width:400px; max-height:300px;">
+        <?php endif; ?>
 
         <?php if ($post['user_id'] == $_SESSION['user_id']): ?>
             <form action="actions/delete_post.php" method="POST">
