@@ -1,5 +1,5 @@
 <nav>
-    <a href="/test2/social-app/index.php" class="nav-logo">SocialApp</a>
+    <a href="/test2/social-app/index.php" class="nav-logo">Inter-Knot</a>
     <div class="nav-links">
         <?php if (isset($_SESSION['user_id'])): ?>
             <a href="/test2/social-app/index.php" class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '' ?>">Accueil</a>
