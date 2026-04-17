@@ -15,6 +15,7 @@ $posts = $stmt->fetchAll();
     <button type="submit">Publier</button>
 </form>
 
+<div class="posts-grid">
 <?php foreach ($posts as $post): ?>  
 
     <?php $avatar = !empty($post['avatar']) ? 'assets/images/' . $post['avatar'] : 'assets/images/default-avatar.png'; ?>
@@ -122,5 +123,6 @@ $posts = $stmt->fetchAll();
     </div>
 
 <?php endforeach; ?>
+</div>
 
 <?php require 'includes/footer.php'; ?>
