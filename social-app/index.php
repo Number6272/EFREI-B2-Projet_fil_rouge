@@ -40,7 +40,7 @@ $posts = $stmt->fetchAll();
                 <?php if (!empty($post['image'])): ?>
                     <img src="assets/images/<?= htmlspecialchars($post['image']) ?>">
                 <?php else: ?>
-                    <img src="assets/images/default-avatar.png">
+                    <img src="assets/images/default-post.png">
                 <?php endif; ?>
             </div>
 
