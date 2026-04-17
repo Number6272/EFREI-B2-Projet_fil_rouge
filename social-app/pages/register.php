@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    header('Location: /social-app/index.php');
+    header('Location: ../index.php');
     exit;
 }
 
@@ -10,45 +10,34 @@ require '../includes/header.php';
 require '../includes/navbar.php';
 ?>
 
-<main class="auth-page">
+<div class="page-content">
     <div class="auth-card">
-        <div class="auth-glow"></div>
 
-        <h1 class="auth-title">CRÉER UN <span>COMPTE</span></h1>
-        <p class="auth-subtitle">Rejoins ZZZ</p>
+        <h2>Créer un compte</h2>
 
         <?php if (!empty($_SESSION['error'])): ?>
-            <div class="alert alert-error"><?= $_SESSION['error'] ?></div>
+            <p class="error"><?= $_SESSION['error'] ?></p>
             <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
 
-        <form action="../actions/register_action.php" method="POST">
+        <form action="../actions/register_action.php" method="POST" class="auth-form">
+            <label>Nom d'utilisateur</label>
+            <input type="text" name="username" placeholder="ton_pseudo" required>
 
-            <div class="form-group">
-                <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" placeholder="ton_pseudo" required>
-            </div>
+            <label>Email</label>
+            <input type="email" name="email" placeholder="exemple@mail.com" required>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@mail.com" required>
-            </div>
+            <label>Mot de passe</label>
+            <input type="password" name="password" placeholder="••••••••" required>
 
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required>
-            </div>
+            <label>Confirmer le mot de passe</label>
+            <input type="password" name="confirm_password" placeholder="••••••••" required>
 
-            <div class="form-group">
-                <label for="confirm_password">Confirmer le mot de passe</label>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">S'INSCRIRE</button>
+            <button type="submit" class="btn-auth">S'INSCRIRE</button>
         </form>
 
-        <p class="auth-switch">Déjà un compte ? <a href="/test2/social-app/pages/login.php">Se connecter</a></p>
+        <p class="auth-switch">Déjà un compte ? <a href="../pages/login.php">Se connecter</a></p>
     </div>
-</main>
+</div>
 
 <?php require '../includes/footer.php'; ?>
