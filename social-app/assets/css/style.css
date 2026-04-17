@@ -3,15 +3,162 @@ body {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background: #eee;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.form-post {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.form-post input,
+.form-post textarea {
+    padding: 8px;
+    width: 100%;
 }
 
 .post {
-    border: 5px solid red !important;
-    background: yellow !important;
-    border-radius: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.post:hover {
+    background: #f9f9f9;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.post-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.open {
+    display: flex;
+}
+
+.modal {
+    background: #1a1a1a;
+    color: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    gap: 20px;
     padding: 20px;
-    margin-bottom: 20px;
+}
+
+.modal-left {
+    flex: 1;
+}
+
+.modal-left img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.modal-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-comments {
+    overflow-y: auto;
+    max-height: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+.likes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-comment {
+    display: flex;
+    gap: 5px;
+}
+
+.form-comment input {
+    flex: 1;
+    padding: 6px;
+}
+
+.btn-close {
+    margin-top: auto;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.modal-right h3,
+.modal-right p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.comment p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .post h3 {
@@ -45,4 +192,17 @@ input {
 button {
     padding: 8px 16px;
     cursor: pointer;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+.post-image {
+    max-width: 400px;
+    max-height: 300px;
 }

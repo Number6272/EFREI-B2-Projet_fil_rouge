@@ -8,84 +8,119 @@ $stmt = $pdo->query("SELECT posts.*, users.username, users.avatar , COUNT(likes.
 $posts = $stmt->fetchAll();
 ?>
 
-<form action="actions/add_post.php" method="POST" enctype="multipart/form-data">
+<form class="form-post" action="actions/add_post.php" method="POST" enctype="multipart/form-data">
     <input type="text" name="titre" placeholder="Titre" required>
     <textarea name="contenu" placeholder="Contenu..." required></textarea>
     <input type="file" name="image" accept="image/*">
     <button type="submit">Publier</button>
 </form>
 
-<?php foreach ($posts as $post): ?>
-    <div class="post">
-        <?php $avatar = !empty($post['avatar']) ? 'assets/images/' . $post['avatar'] : 'assets/images/default-avatar.png'; ?>
-        <img src="<?= htmlspecialchars($avatar) ?>" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">
-        <strong><?= htmlspecialchars($post['username']) ?></strong>
+<?php foreach ($posts as $post): ?>  
+
+    <?php $avatar = !empty($post['avatar']) ? 'assets/images/' . $post['avatar'] : 'assets/images/default-avatar.png'; ?>
+
+    <div class="post" onclick="openModal(<?= $post['id'] ?>)">
+        <div class="post-header">
+            <img src="<?= htmlspecialchars($avatar) ?>" class="avatar">
+            <strong><?= htmlspecialchars($post['username']) ?></strong>
+        </div>
 
         <h3><?= htmlspecialchars($post['titre']) ?></h3>
         <p><?= htmlspecialchars($post['contenu']) ?></p>
-        <small><?= htmlspecialchars($post['created_at']) ?></small>
 
         <?php if (!empty($post['image'])): ?>
-            <img src="assets/images/<?= htmlspecialchars($post['image']) ?>" style="max-width:400px; max-height:300px;">
+            <img src="assets/images/<?= htmlspecialchars($post['image']) ?>" class="post-image">
         <?php endif; ?>
+    </div>
 
-        <?php if ($post['user_id'] == $_SESSION['user_id']): ?>
-            <form action="actions/delete_post.php" method="POST">
-                <input type="hidden" name="id" value="<?= $post['id'] ?>">
-                <button type="submit">Supprimer</button>
-            </form>
-        <?php endif; ?>
+    <div class="modal-overlay" id="modal-<?= $post['id'] ?>" onclick="closeModal(<?= $post['id'] ?>)">
+        <div class="modal" onclick="event.stopPropagation()">
 
-        <?php
-        $stmt2 = $pdo->prepare("SELECT comments.*, users.username, users.avatar FROM comments JOIN users ON comments.user_id = users.id WHERE post_id = ? ORDER BY created_at ASC");
-        $stmt2->execute([$post['id']]);
-        $comments = $stmt2->fetchAll();
-        ?>
+            <div class="modal-left">
+                <?php if (!empty($post['image'])): ?>
+                    <img src="assets/images/<?= htmlspecialchars($post['image']) ?>">
+                <?php else: ?>
+                    <img src="assets/images/default-avatar.png">
+                <?php endif; ?>
+            </div>
 
-        <?php foreach ($comments as $comment): ?>
-            <div>
-                <?php $comment_avatar = !empty($comment['avatar']) ? 'assets/images/' . $comment['avatar'] : 'assets/images/default-avatar.png'; ?>
-                <img src="<?= htmlspecialchars($comment_avatar) ?>" style="width:40px; height:40px; object-fit:cover; border-radius:50%;">
-                <strong><?= htmlspecialchars($comment['username']) ?></strong>
-                <p><?= htmlspecialchars($comment['contenu']) ?></p>
+            <div class="modal-right">
+                <div class="modal-author">
+                    <img src="<?= htmlspecialchars($avatar) ?>" class="avatar">
+                    <strong><?= htmlspecialchars($post['username']) ?></strong>
+                </div>
 
-                <?php if ($comment['user_id'] == $_SESSION['user_id']): ?>
-                    <form action="actions/delete_comment.php" method="POST">
-                        <input type="hidden" name="id" value="<?= $comment['id'] ?>">
+                <h3><?= htmlspecialchars($post['titre']) ?></h3>
+                <p><?= htmlspecialchars($post['contenu']) ?></p>
+                <small><?= htmlspecialchars($post['created_at']) ?></small>
+
+                <?php if ($post['user_id'] == $_SESSION['user_id']): ?>
+                    <form action="actions/delete_post.php" method="POST">
+                        <input type="hidden" name="id" value="<?= $post['id'] ?>">
                         <button type="submit">Supprimer</button>
                     </form>
                 <?php endif; ?>
+
+                <?php
+                $stmt3 = $pdo->prepare("SELECT id FROM likes WHERE post_id = ? AND user_id = ?");
+                $stmt3->execute([$post['id'], $_SESSION['user_id']]);
+                $user_liked = $stmt3->fetch();
+                ?>
+
+                <div class="likes">
+                    <span><?= $post['nb_likes'] ?> like(s)</span>
+
+                    <?php if ($user_liked): ?>
+                        <form action="actions/unlike_post.php" method="POST">
+                            <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
+                            <button type="submit">Unlike</button>
+                        </form>
+                    <?php else: ?>
+                        <form action="actions/like_post.php" method="POST">
+                            <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
+                            <button type="submit">Like</button>
+                        </form>
+                    <?php endif; ?>
+                </div>
+
+                <?php
+                $stmt2 = $pdo->prepare("SELECT comments.*, users.username, users.avatar FROM comments JOIN users ON comments.user_id = users.id WHERE post_id = ? ORDER BY created_at ASC");
+                $stmt2->execute([$post['id']]);
+                $comments = $stmt2->fetchAll();
+                ?>
+
+                <div class="modal-comments">
+                    <?php foreach ($comments as $comment): ?>
+                        <div class="comment">
+                            <?php $comment_avatar = !empty($comment['avatar']) ? 'assets/images/' . $comment['avatar'] : 'assets/images/default-avatar.png'; ?>
+                            <img src="<?= htmlspecialchars($comment_avatar) ?>" class="avatar">
+
+                            <div>
+                                <strong><?= htmlspecialchars($comment['username']) ?></strong>
+                                <p><?= htmlspecialchars($comment['contenu']) ?></p>
+                            </div>
+
+                            <?php if ($comment['user_id'] == $_SESSION['user_id']): ?>
+                                <form action="actions/delete_comment.php" method="POST">
+                                    <input type="hidden" name="id" value="<?= $comment['id'] ?>">
+                                    <button type="submit">Supprimer</button>
+                                </form>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <form class="form-comment" action="actions/add_comment.php" method="POST">
+                        <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
+                        <input type="text" name="contenu" placeholder="Ajouter un commentaire..." required>
+                        <button type="submit">Commenter</button>
+                    </form>
+                </div>
+
+                <button class="btn-close" onclick="closeModal(<?= $post['id'] ?>)">Fermer</button>
             </div>
-        <?php endforeach; ?>
-
-        <form action="actions/add_comment.php" method="POST">
-            <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
-            <input type="text" name="contenu" placeholder="Ajouter un commentaire..." required>
-            <button type="submit">Commenter</button>
-        </form>
-
-        <?php
-        $stmt3 = $pdo->prepare("SELECT id FROM likes WHERE post_id = ? AND user_id = ?");
-        $stmt3->execute([$post['id'], $_SESSION['user_id']]);
-        $user_liked = $stmt3->fetch();
-        ?>
-
-        <span><?= htmlspecialchars($post['nb_likes']) ?> like(s)</span>
-
-        <?php if ($user_liked): ?>
-            <form action="actions/unlike_post.php" method="POST">
-                <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
-                <button type="submit">Unlike</button>
-            </form>
-
-        <?php else: ?>
-            <form action="actions/like_post.php" method="POST">
-            <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
-                <button type="submit">Like</button>
-            </form>
-        <?php endif; ?>
-
+        </div>
     </div>
+
 <?php endforeach; ?>
 
 <?php require 'includes/footer.php'; ?>
