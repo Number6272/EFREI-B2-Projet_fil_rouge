@@ -3,6 +3,16 @@
     <source src="/test2/social-app/assets/music/bg.mp3" type="audio/mpeg">
 </audio>
 
+<footer class="footer">
+    <p class="footer-logo">Inter-Knot</p>
+    <div class="footer-links">
+        <a href="#">À propos</a>
+        <a href="#">Contact</a>
+        <a href="#">Confidentialité</a>
+    </div>
+    <p class="footer-copy">© 2026 Inter-Knot. Tous droits réservés.</p>
+</footer>
+
 <button onclick="toggleMusic()" id="music-btn" style="position:fixed; bottom:20px; right:20px; background:#d4ff00; color:#111; border:none; padding:8px 14px; border-radius:30px; font-weight:bold; cursor:pointer; z-index:999;">
     🎵 Musique
 </button>

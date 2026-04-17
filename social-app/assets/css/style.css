@@ -7,7 +7,10 @@
 body {
     font-family: Arial, sans-serif;
     background: #1a1a1a;
-    font-weight: 800;
+    font-weight: 600;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 nav {
@@ -18,6 +21,7 @@ nav {
     height: 55px;
     background: #111;
     margin-bottom: 20px;
+    flex-shrink: 0;
 }
 
 .nav-logo {
@@ -59,6 +63,7 @@ nav {
 
 .page-content {
     padding: 20px;
+    flex: 1;
 }
 
 .form-post {
@@ -82,6 +87,31 @@ nav {
 .form-post input::placeholder,
 .form-post textarea::placeholder {
     color: #888;
+}
+
+.form-post input[type="file"] {
+    padding: 8px 12px;
+    width: 100%;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: white;
+}
+
+.form-post button[type="submit"] {
+    background: #d4ff00;
+    color: #111;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95rem;
+    width: 100%;
+}
+
+.form-post button[type="submit"]:hover {
+    background: #bde600;
 }
 
 .posts-grid {
@@ -160,7 +190,6 @@ button {
     padding: 4px;
 }
 
-/* ---- Modal ---- */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -417,18 +446,49 @@ button {
     font-size: 0.9rem;
 }
 
-.form-post button[type="submit"] {
-    background: #d4ff00;
-    color: #111;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 0.95rem;
-    width: 100%;
+.footer {
+    padding: 30px 20px;
+    background: #111;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: #aaa;
+    margin-top: auto;
+    flex-shrink: 0;
 }
 
-.form-post button[type="submit"]:hover {
-    background: #bde600;
+.footer-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.footer-logo {
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-style: italic;
+    color: #d4ff00;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.footer-links a:hover {
+    color: #d4ff00;
+}
+
+.footer-copy {
+    font-size: 0.75rem;
+    color: #555;
 }
