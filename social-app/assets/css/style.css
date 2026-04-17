@@ -415,3 +415,19 @@ button {
     color: #e74c3c;
     font-size: 0.9rem;
 }
+
+.form-post button[type="submit"] {
+    background: #d4ff00;
+    color: #111;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95rem;
+    width: 100%;
+}
+
+.form-post button[type="submit"]:hover {
+    background: #bde600;
+}
