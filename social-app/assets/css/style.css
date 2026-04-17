@@ -282,3 +282,61 @@ button {
 .btn-close:hover {
     background: #e74c3c;
 }
+
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 40px auto;
+    color: white;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #f5e642;
+    flex-shrink: 0;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.profile-info h2 {
+    font-size: 1.4rem;
+}
+
+.profile-info p {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.form-avatar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-avatar {
+    background: #d4ff00;
+    color: #111;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-avatar:hover {
+    background: #e0d020;
+}

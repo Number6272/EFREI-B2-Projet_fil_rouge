@@ -9,20 +9,24 @@ $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch();
 
 $avatar = $user['avatar'] ? '../assets/images/' . $user['avatar'] : '../assets/images/default-avatar.png';
-
 ?>
 
-<div class="profile">
-    <img src="<?= htmlspecialchars($avatar) ?>" alt="Photo de profil" style="width:120px; height:120px; object-fit:cover; border-radius:50%;">
+<div class="page-content">
+    <div class="profile-card">
 
-    <h2><?= htmlspecialchars($user['username']) ?></h2>
-    <p><?= htmlspecialchars($user['email']) ?></p>
+        <img src="<?= htmlspecialchars($avatar) ?>" class="profile-avatar">
 
-    <form action="../actions/update_avatar.php" method="POST" enctype="multipart/form-data">
-        <input type="file" name="avatar" accept="image/*" required>
-        <button type="submit">Changer la photo</button>
-    </form>
-    
+        <div class="profile-info">
+            <h2><?= htmlspecialchars($user['username']) ?></h2>
+            <p><?= htmlspecialchars($user['email']) ?></p>
+
+            <form action="../actions/update_avatar.php" method="POST" enctype="multipart/form-data" class="form-avatar">
+                <input type="file" name="avatar" accept="image/*" required>
+                <button type="submit" class="btn-avatar">Changer la photo</button>
+            </form>
+        </div>
+
+    </div>
 </div>
 
 <?php require '../includes/footer.php'; ?>
