@@ -25,7 +25,7 @@ nav {
     font-style: italic;
     color: #111;
     text-decoration: none;
-    background: #f5e642;
+    background: #d4ff00;
     padding: 6px 20px;
     border-radius: 30px;
 }
@@ -49,7 +49,7 @@ nav {
 
 .nav-link:hover,
 .nav-link.active {
-    border-bottom: 2px solid #f5e642;
+    border-bottom: 2px solid #d4ff00;
 }
 
 .nav-logout {
@@ -100,9 +100,8 @@ nav {
 }
 
 .post:hover {
-    border-color: #f5e642;
-    box-shadow: 0 0 12px rgba(245, 230, 66, 0.4);
-    opacity: 1;
+    border-color: #d4ff00;
+    box-shadow: 0 0 12px rgba(212, 255, 0, 0.4);
 }
 
 .post-image {
@@ -160,6 +159,7 @@ button {
     padding: 4px;
 }
 
+/* ---- Modal ---- */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -301,7 +301,7 @@ button {
     height: 120px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #f5e642;
+    border: 3px solid #d4ff00;
     flex-shrink: 0;
 }
 
@@ -338,5 +338,5 @@ button {
 }
 
 .btn-avatar:hover {
-    background: #e0d020;
+    background: #bde600;
 }
