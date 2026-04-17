@@ -8,6 +8,8 @@ $stmt = $pdo->query("SELECT posts.*, users.username, users.avatar, COUNT(likes.i
 $posts = $stmt->fetchAll();
 ?>
 
+<div class="page-content">
+
 <form class="form-post" action="actions/add_post.php" method="POST" enctype="multipart/form-data">
     <input type="text" name="titre" placeholder="Titre" required>
     <textarea name="contenu" placeholder="Contenu..." required></textarea>
@@ -123,6 +125,8 @@ $posts = $stmt->fetchAll();
     </div>
 
 <?php endforeach; ?>
+</div>
+
 </div>
 
 <?php require 'includes/footer.php'; ?>

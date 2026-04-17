@@ -6,18 +6,58 @@
 
 body {
     font-family: Arial, sans-serif;
-    padding: 20px;
     background: #f0f0f0;
 }
 
 nav {
     display: flex;
-    gap: 15px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    height: 55px;
+    background: #111;
     margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+}
+
+.nav-logo {
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-style: italic;
+    color: #111;
+    text-decoration: none;
+    background: #f5e642;
+    padding: 6px 20px;
+    border-radius: 30px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding-bottom: 3px;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    border-bottom: 2px solid #f5e642;
+}
+
+.nav-logout {
+    color: #aaa;
+}
+
+.page-content {
+    padding: 20px;
 }
 
 .form-post {
@@ -39,7 +79,6 @@ nav {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 15px;
 }
-
 
 .post {
     background: #2a2a2a;
