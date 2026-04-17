@@ -9,5 +9,6 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <title>SocialApp</title>
     <link rel="stylesheet" href="/test2/social-app/assets/css/style.css">
+    <link rel="icon" type="image/png" href="/test2/social-app/assets/images/logo.png">
 </head>
 <body></body>
