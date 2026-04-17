@@ -4,7 +4,7 @@ require 'includes/header.php';
 require 'includes/navbar.php';
 require 'config/db.php';
 
-$stmt = $pdo->query("SELECT posts.*, users.username, users.avatar , COUNT(likes.id) as nb_likes FROM posts JOIN users ON posts.user_id = users.id LEFT JOIN likes ON posts.id = likes.post_id GROUP BY posts.id ORDER BY posts.created_at DESC");
+$stmt = $pdo->query("SELECT posts.*, users.username, users.avatar, COUNT(likes.id) as nb_likes FROM posts JOIN users ON posts.user_id = users.id LEFT JOIN likes ON posts.id = likes.post_id GROUP BY posts.id ORDER BY posts.created_at DESC");
 $posts = $stmt->fetchAll();
 ?>
 
@@ -16,22 +16,25 @@ $posts = $stmt->fetchAll();
 </form>
 
 <div class="posts-grid">
-<?php foreach ($posts as $post): ?>  
+<?php foreach ($posts as $post): ?>
 
     <?php $avatar = !empty($post['avatar']) ? 'assets/images/' . $post['avatar'] : 'assets/images/default-avatar.png'; ?>
 
     <div class="post" onclick="openModal(<?= $post['id'] ?>)">
-        <div class="post-header">
-            <img src="<?= htmlspecialchars($avatar) ?>" class="avatar">
-            <strong><?= htmlspecialchars($post['username']) ?></strong>
-        </div>
-
-        <h3><?= htmlspecialchars($post['titre']) ?></h3>
-        <p><?= htmlspecialchars($post['contenu']) ?></p>
-
         <?php if (!empty($post['image'])): ?>
             <img src="assets/images/<?= htmlspecialchars($post['image']) ?>" class="post-image">
+        <?php else: ?>
+            <img src="assets/images/default-post.png" class="post-image">
         <?php endif; ?>
+
+        <div class="post-info">
+            <div class="post-header">
+                <img src="<?= htmlspecialchars($avatar) ?>" class="avatar">
+                <strong><?= htmlspecialchars($post['username']) ?></strong>
+            </div>
+            <h3><?= htmlspecialchars($post['titre']) ?></h3>
+            <p><?= htmlspecialchars($post['contenu']) ?></p>
+        </div>
     </div>
 
     <div class="modal-overlay" id="modal-<?= $post['id'] ?>" onclick="closeModal(<?= $post['id'] ?>)">
@@ -58,7 +61,7 @@ $posts = $stmt->fetchAll();
                 <?php if ($post['user_id'] == $_SESSION['user_id']): ?>
                     <form action="actions/delete_post.php" method="POST">
                         <input type="hidden" name="id" value="<?= $post['id'] ?>">
-                        <button type="submit">Supprimer</button>
+                        <button type="submit">🗑️</button>
                     </form>
                 <?php endif; ?>
 
@@ -69,17 +72,16 @@ $posts = $stmt->fetchAll();
                 ?>
 
                 <div class="likes">
-                    <span><?= $post['nb_likes'] ?> like(s)</span>
-
+                    <span><?= $post['nb_likes'] ?> like</span>
                     <?php if ($user_liked): ?>
                         <form action="actions/unlike_post.php" method="POST">
                             <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
-                            <button type="submit">Unlike</button>
+                            <button type="submit">❤️</button>
                         </form>
                     <?php else: ?>
                         <form action="actions/like_post.php" method="POST">
                             <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
-                            <button type="submit">Like</button>
+                            <button type="submit">🤍</button>
                         </form>
                     <?php endif; ?>
                 </div>
@@ -95,16 +97,14 @@ $posts = $stmt->fetchAll();
                         <div class="comment">
                             <?php $comment_avatar = !empty($comment['avatar']) ? 'assets/images/' . $comment['avatar'] : 'assets/images/default-avatar.png'; ?>
                             <img src="<?= htmlspecialchars($comment_avatar) ?>" class="avatar">
-
                             <div>
                                 <strong><?= htmlspecialchars($comment['username']) ?></strong>
                                 <p><?= htmlspecialchars($comment['contenu']) ?></p>
                             </div>
-
                             <?php if ($comment['user_id'] == $_SESSION['user_id']): ?>
                                 <form action="actions/delete_comment.php" method="POST">
                                     <input type="hidden" name="id" value="<?= $comment['id'] ?>">
-                                    <button type="submit">Supprimer</button>
+                                    <button type="submit">🗑️</button>
                                 </form>
                             <?php endif; ?>
                         </div>
