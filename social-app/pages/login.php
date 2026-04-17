@@ -10,35 +10,28 @@ require '../includes/header.php';
 require '../includes/navbar.php';
 ?>
 
-<main class="auth-page">
+<div class="page-content">
     <div class="auth-card">
-        <div class="auth-glow"></div>
 
-        <h1 class="auth-title">SE <span>CONNECTER</span></h1>
-        <p class="auth-subtitle">Accède à ton espace</p>
+        <h2>Se connecter</h2>
 
         <?php if (!empty($_SESSION['error'])): ?>
-            <div class="alert alert-error"><?= $_SESSION['error'] ?></div>
+            <p class="error"><?= $_SESSION['error'] ?></p>
             <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
 
         <form action="../actions/login_action.php" method="POST" class="auth-form">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="exemple@mail.com" required>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="exemple@mail.com" required>
-            </div>
+            <label>Mot de passe</label>
+            <input type="password" name="password" placeholder="••••••••" required>
 
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">SE CONNECTER</button>
+            <button type="submit" class="btn-auth">SE CONNECTER</button>
         </form>
 
         <p class="auth-switch">Pas de compte ? <a href="../pages/register.php">S'inscrire</a></p>
     </div>
-</main>
+</div>
 
 <?php require '../includes/footer.php'; ?>
