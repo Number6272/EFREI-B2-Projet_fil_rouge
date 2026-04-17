@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f0f0f0;
+    background: #1a1a1a;
 }
 
 nav {
@@ -70,8 +70,17 @@ nav {
 
 .form-post input,
 .form-post textarea {
-    padding: 8px;
+    padding: 8px 12px;
     width: 100%;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: white;
+}
+
+.form-post input::placeholder,
+.form-post textarea::placeholder {
+    color: #888;
 }
 
 .posts-grid {
