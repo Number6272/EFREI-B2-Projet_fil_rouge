@@ -4,6 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /test2/social-app/pages/login.php');
+    header('Location: /social-app/pages/login.php');
     exit;
 }

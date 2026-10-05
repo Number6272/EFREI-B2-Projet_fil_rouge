@@ -1,6 +1,6 @@
-<script src="/test2/social-app/assets/js/script.js"></script>
+<script src="/social-app/assets/js/script.js"></script>
 <audio id="bg-music" autoplay loop>
-    <source src="/test2/social-app/assets/music/bg.mp3" type="audio/mpeg">
+    <source src="/social-app/assets/music/bg.mp3" type="audio/mpeg">
 </audio>
 
 <footer class="footer">

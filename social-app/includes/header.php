@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <title>Inter-Knot</title>
-    <link rel="stylesheet" href="/test2/social-app/assets/css/style.css">
-    <link rel="icon" type="image/png" href="/test2/social-app/assets/images/logo.png">
+    <link rel="stylesheet" href="/social-app/assets/css/style.css">
+    <link rel="icon" type="image/png" href="/social-app/assets/images/logo.png">
 </head>
 <body></body>
