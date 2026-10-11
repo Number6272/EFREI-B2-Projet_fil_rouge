@@ -7,13 +7,19 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #1a1a1a;
-    background-image: url('/social-app/assets/images/bg.png');
+    background-image: url('../images/bg.png');
     background-repeat: repeat;
-    background-size: 500px;
+    background-size: 502px 374px;
+    animation: bg-defile 25s linear infinite;
     font-weight: 600;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+@keyframes bg-defile {
+    from { background-position: 0 0; }
+    to   { background-position: 502px -374px; }
 }
 
 nav {
